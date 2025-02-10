@@ -1,0 +1,34 @@
+The user file-creation mode mask (umask) is used to determine the file permissions for newly created
+files or directories. It can be used to control the default file or directory permissions for new files. It is
+a four-digit octal number. The umask value for normal user is 0002 and the umask value for
+root user is 0022.
+So, the effected file permissions for normal users = 6 6 6 - 0 0 2 = 6 6 4.
+The effected directory permissions for normal users = 7 7 7 - 0 0 2 = 7 7 5.
+
+The effected file permissions for root user = 6 6 6 - 0 2 2 = 6 4 4
+The effected directory permissions for root user = 7 7 7 - 0 2 2 = 7 5 5
+
+how to check umask which is set
+[root@managed-host ~]# umask
+0022
+[ansadmin@managed-host ~]$ umask
+0022
+
+you can check that it is set for both [normal user and root user] is same
+
+Where you can set umask value
+  --  vim /etc/bashrc
+
+ek user bhi set kr sakta hai apana personal umask 
+[ansadmin@managed-host ~]$ cat /etc/profile | grep umask
+umask 0002
+[ansadmin@managed-host ~]$ source /etc/profile
+[ansadmin@managed-host ~]$ source /etc/profile      ---- reload 
+[ansadmin@managed-host ~]$ umask
+0002
+abhi jo bhi normal user file or dir create karega uske profile based pe hoga...
+
+NOTE: ydi umask root kewal set kiya hai means humne normal user ke through koi umask define nhin kiya hai toh wo root ke umask 
+      se file or dir create hoga ...
+      yadi normal user bhi umask define kr rkha hai toh kud ka umask pickup krega hai aur uske help se file create hoga.
+
