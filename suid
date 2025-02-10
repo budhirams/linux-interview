@@ -1,0 +1,56 @@
+*******************USE CASE OF ---SUID----*******************************************
+
+SUID tab lagaya jata hai , suppose koi user bar bar kisi root command ko chlana chahta hai , but normal user use access nhi 
+kar pata hai to es case me hum yadi command ki binaries me yadi SUID laga de toh wo be us command ko access kr payega 
+
+how to check command binaries : which fdisk , which passwd
+
+[root@server ~]# useradd budhi
+[root@server ~]# passwd budhi
+Changing password for user budhi.
+New password:
+BAD PASSWORD: The password is shorter than 8 characters
+Retype new password:
+passwd: all authentication tokens updated successfully.
+[root@server ~]# su - budhi
+[budhi@server ~]$ fdisk -l
+fdisk: cannot open /dev/xvda: Permission denied
+
+    [root@server ~]# which fdisk
+    /sbin/fdisk
+    [root@server ~]# ls -ld /sbin/fdisk
+    -rwxr-xr-x 1 root root 118312 Apr 14 21:36 /sbin/fdisk
+    [root@server ~]# chmod u+s /sbin/fdisk
+    [root@server ~]# ls -ld /sbin/fdisk
+    -rwsr-xr-x 1 root root 118312 Apr 14 21:36 /sbin/fdisk
+
+[root@server ~]# su - budhi
+Last login: Fri Jul 15 17:49:53 UTC 2022 on pts/0
+[budhi@server ~]$ fdisk -l
+Disk /dev/xvda: 8 GiB, 8589934592 bytes, 16777216 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: 1CF4CE82-5799-4154-B00B-31C2919BF5BD
+
+Device       Start      End  Sectors Size Type
+/dev/xvda1    4096 16777182 16773087   8G Linux filesystem
+/dev/xvda128  2048     4095     2048   1M BIOS boot
+
+Partition table entries are not in disk order.
+
+NOTE: SUID nikalna hai toh kaise nikalen
+[root@server ~]# ls -ld /sbin/fdisk
+-rwsr-xr-x 1 root root 118312 Apr 14 21:36 /sbin/fdisk
+[root@server ~]#
+[root@server ~]# chmod u-s /sbin/fdisk
+[root@server ~]# ls -ld /sbin/fdisk
+-rwxr-xr-x 1 root root 118312 Apr 14 21:36 /sbin/fdisk
+
+abhi s ki jagah s dikhne laga means SUID ab humara hat haya .
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*******************USE CASE OF ---SGID----*******************************************
