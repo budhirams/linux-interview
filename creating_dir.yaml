@@ -1,0 +1,15 @@
+- name: creating a directory 
+  hosts: all
+  become: true
+  tasks:
+    - name: creating directory on remote
+      file:
+         path: /home/ansadmin/demofile-directory
+         state: directory
+
+# NOTE: become: true                     check user and group
+# in managed node it will created like below
+# drwxr-xr-x. 2 root     root      6 Feb 11 22:54 demofile-directory
+#
+# If I am not using "become: true"
+# -rw-r--r--. 1 ansadmin ansadmin  0 Feb 11 21:50 demofile-directory 
