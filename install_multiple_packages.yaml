@@ -1,0 +1,13 @@
+- name: Install multiple packages
+  hosts: all
+  become: true
+  tasks:
+    - name: install pkgs
+      yum:
+        name: "{{item}}"
+        state: installed
+      with_items:
+       - httpd
+       - vim
+       - git 
+
