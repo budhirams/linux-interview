@@ -1,0 +1,7 @@
+- name: creating a file
+  hosts: all
+  tasks:
+    - name: creating file using touch module
+      file:
+        path: /home/ansadmin/demofile
+        state: touch
