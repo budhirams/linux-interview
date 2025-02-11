@@ -1,0 +1,20 @@
+ls /sys/class/scsi_host/ | while read host ;do echo "- - -" > /sys/class/scsi_host/$host/scan;done
+fdisk -l
+fdisk /dev/sdb
+partprobe /dev/sdb
+pvcreate /dev/sdb1
+vgcreate vgname /dev/sdb1
+lvcreate -L 5G -n lvname vgname
+mkfs.ext4 /dev/vgname/lvname
+mkdir /data
+mount /dev/vgname/lvname /data
+lsblk -d -fs
+echo "UUID=0861b553-de31-4b31-8f35-5300407c4ac6 /data ext4 defaults 0 0" >> /etc/fstab
+df -kh
+cat /etc/fstab
+vgs
+vgextend vgname /dev/sdb1
+vgs
+lvextend -L +2G /dev/vgname/lvname
+resize2fs /dev/vgname/lvname
+df -kh
