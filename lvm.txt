@@ -1,7 +1,7 @@
 ls /sys/class/scsi_host/ | while read host ;do echo "- - -" > /sys/class/scsi_host/$host/scan;done
 fdisk -l
 fdisk /dev/sdb
-partprobe /dev/sdb
+partprobe /dev/sdb1
 pvcreate /dev/sdb1
 vgcreate vgname /dev/sdb1
 lvcreate -L 5G -n lvname vgname
