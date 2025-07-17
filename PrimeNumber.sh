@@ -1,14 +1,22 @@
 #!/bin/bash
-read -p "Enter number for check prime or not :" n
-for ((i=2;i<=$n/2;i++))
+
+read -p "Enter number to check if it is prime: " n
+
+if [ "$n" -le 1 ]; then
+    echo "$n is not a prime number"
+    exit
+fi
+
+for ((i=2; i<=n/2; i++))
 do
-        if [ $((n % i)) -eq 0 ]
-        then
-                echo "$n is not a prime number"
+    if (( n % i == 0 )); then
+        echo "$n is not a prime number"
         exit
-        fi
+    fi
 done
-echo "$n is prime numer"
+
+echo "$n is a prime number"
+
 
 
 
