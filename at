@@ -1,0 +1,31 @@
+Scheduling Jobs with at and crontab:
+------------------------------------
+
+at and crontab commands are used to schedule a job, nothing but running shell script automatically at a given time in the background.
+
+Difference:
+- at: To run job only once
+- crontab: To run jobs with intervals based on requirements - basically more than once
+
+
+Note: Use always complete paths for command in scripts when we want to execute a script using  at/crontab
+
+How to check at is installed or not ?
+root@kali:~# which at
+/usr/bin/at
+root@kali:~# command -v at
+/usr/bin/at
+
+root@kali:~# systemctl status atd
+
+Scheduling a job using:
+--------------------------
+echo "completePathOfTheScript" | at <requiredTime>
+
+Example:
+   echo "/root/automation/practice_1.sh" | at 17:57
+atq --- To list the scheduled jobs
+
+To remove job
+-------------------------
+atrm jobid 
