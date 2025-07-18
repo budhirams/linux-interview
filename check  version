@@ -1,0 +1,39 @@
+#!/usr/bin/bash
+
+# Docker Version
+# Using: Docker version 24.0.2, build cb74dfc
+if command -v docker 1>/dev/null 2>&1; then
+    dockerVer=$(docker --version | awk '{print $3}' | tr -d ',')
+else 
+    dockerVer="Not Found"
+fi
+
+# Ansible Version
+# Using: ansible [core 2.18.6]
+if command -v ansible 1>/dev/null 2>&1; then
+    ansibleVer=$(ansible --version | awk '/^ansible/ {print $3}' | tr -d ']')
+else
+    ansibleVer="Not Found"
+fi
+
+# Java Version
+# Using: openjdk version "17.0.9" ...
+if command -v java 1>/dev/null 2>&1; then
+    javaVer=$(java -version 2>&1 | awk 'NR==1 {print $3}' | tr -d '"')
+else
+    javaVer="Not Found"
+fi
+
+# Nginx Version
+# Using: nginx version: nginx/1.18.0 (Ubuntu)
+if command -v nginx 1>/dev/null 2>&1; then
+    nginxVer=$(nginx -v 2>&1 | awk -F/ '{print $2}' | awk '{print $1}')
+else
+    nginxVer="Not Found"
+fi
+
+echo -e "ToolName\tVersion"
+echo -e "Docker\t\t${dockerVer}"
+echo -e "Ansible\t\t${ansibleVer}"
+echo -e "Java\t\t${javaVer}"
+echo -e "Nginx\t\t${nginxVer}"
