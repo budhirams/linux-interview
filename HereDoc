@@ -1,0 +1,75 @@
+Here Document & Here String
+---------------------------
+
+Heredoc is a multi-lines of strings that will be redirected to a command
+Syntax:
+           command << DELIMITER
+           line_1
+           line_2
+           line_3
+           DELIMITER
+Mostly We use heredoc for cat and ssh commands
+
+
+
+
+
+
+#!/usr/bin/bash
+
+# Multiline strings
+cat << EOF 
+FIRST LINE
+SECOND LINE
+EOF
+
+
+myShell="bash"
+cat << EOF1
+my shell is ${myShell}
+EOF1
+
+
+# variable and command Expansion
+cat << EOF2
+${myShell}
+$(whoami)                          -------------- notice here dont use ${whoami} it will not work , use $(whoami)
+EOF2
+
+bis@kali:~/shellScripting$ ./practice1.sh 
+FIRST LINE
+SECOND LINE
+my shell is bash
+bash
+bis
+
+
+
+
+
+# Escape Character (\)
+cat << EOF3
+\${myShell}
+$(whoami)
+EOF3
+bis@kali:~/shellScripting$ ./practice1.sh 
+${myShell}
+bis
+
+
+
+# Piping
+cat << EOF4 | grep 'FIRST'
+FIRST LINE
+SECOND LINE
+EOF4
+
+bis@kali:~/shellScripting$ ./practice1.sh 
+FIRST LINE
+
+
+
+
+
+
+
