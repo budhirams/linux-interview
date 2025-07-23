@@ -1,0 +1,109 @@
+------------------------------------------------------------------------------------------------------
+                                  While loop
+                                 ------------
+
+Syntax1:
+
+while :
+do
+  echo "This is infinite loop"
+done
+
+
+
+
+#!/bin/bash
+while :
+do
+        echo "hi"
+done
+
+
+
+
+
+#!/bin/bash
+num=1
+while :
+do
+         echo "hi"
+         num=$((num + 1))
+         if [[ $num -eq 5 ]]
+         then
+                 break
+         fi
+
+         sleep 2
+done
+
+------------------------------------------------------------------------------------------------------
+Syntax2:
+
+while [[ condition ]]
+do
+  echo "This logic will execute as long as condition is true"
+done
+
+
+bis@LAPTOP-MAV6U7B1:~/LinuxPractice$ ./infinity_while.sh
+hello!
+hello!
+hello!
+hello!
+hello!
+hello!
+hello!
+hello!
+hello!
+.
+.
+.
+.
+.
+
+
+cnt=1
+while [[ $cnt -le 4 ]]
+do
+        echo "hi"
+        cnt=$((cnt+1))
+done
+
+hi
+hi
+hi
+hi
+
+
+
+
+
+
+
+#!/bin/bash
+ps -ef | grep "/usr/sbin" | while read -r line
+do
+    echo "${line}"
+    sleep 1
+done
+
+bis@LAPTOP-MAV6U7B1:~/while loop$ ./whil2.sh
+root         193       1  0 17:46 ?        00:00:00 /usr/sbin/cron -f -P
+syslog       231       1  0 17:46 ?        00:00:00 /usr/sbin/rsyslogd -n -iNONE
+root         232       1  0 17:46 ?        00:00:00 nginx: master process /usr/sbin/nginx -g daemon on; master_process on;
+bis         3910    3908  0 18:54 pts/8    00:00:00 grep /usr/sbin
+
+NOTE : what does mean -r here
+using read -r ensures you read the raw line exactly as it appears, without trying to interpret backslashes.
+
+Example:
+echo "this\ is\ a\ test" | while read line; do echo "$line"; done
+# Output: this is a test
+
+echo "this\ is\ a\ test" | while read -r line; do echo "$line"; done
+# Output: this\ is\ a\ test
+
+------------------------------------------------------------------------------------------------------
+
+
+
