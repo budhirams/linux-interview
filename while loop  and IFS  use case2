@@ -1,0 +1,135 @@
+#!/bin/bash
+
+# while read -r line
+# do
+#     echo "${line}"
+#     sleep 1
+# done < server_list.txt
+
+# ----------- or --
+fileName=server_list.txt
+while read -r line
+do
+    echo "${line}"
+    sleep 1
+done < ${fileName}
+
+
+------------------------------ IFS (internal Field seperator) -----------------------------------
+
+IFS 
+
+#!/bin/bash
+fileName=server_list.txt
+while IFS='.' read -r f1 f2 f3 f4
+do
+      echo "${f1} : ${f2}"
+done < ${fileName}
+
+server1 : example
+192 : 168
+server2 : local
+10 : 0
+
+
+#!/bin/bash
+fileName=server_list.txt
+while IFS='.' read -r f1 f2 f3 f4
+do
+      echo "${f1}"
+done < ${fileName}
+
+server1
+192
+server2
+10
+
+
+---------------------------------------------------------------------------
+
+while read -r line            difference between                     while IFS= read -r line
+
+actual use cases IFS=        means default (IFS=)
+
+create text
+--------------------------
+  line with leading space
+line with trailing space  
+line  with  multiple   spaces
+
+
+Script A: Without IFS=
+#!/bin/bash
+while read -r line; do
+    echo ">$line<"
+done < create.txt
+
+
+>line with leading space<
+>line with trailing space<
+>line  with  multiple   spaces<
+
+✅ Notice:
+Leading spaces are removed
+Trailing spaces are removed
+Extra spaces between words may collapse if you read into multiple variables
+
+
+Script B: With IFS=
+
+#!/bin/bash
+while IFS= read -r line; do
+    echo ">$line<"
+done < demo.txt
+
+>  line with leading space<
+>line with trailing space  <
+>line  with  multiple   spaces<
+
+
+✅ Notice:
+
+Leading and trailing spaces are preserved
+Multiple internal spaces are preserved
+The line is read exactly as-is
+
+
+
+
+
+#!/bin/bash
+while IFS=':' read -r user pass uid gid desc home shell; do
+    echo "User: $user | Home: $home | Shell: $shell"
+done < /etc/passwd
+
+
+User: backup | Home: /var/backups | Shell: /usr/sbin/nologin
+User: list | Home: /var/list | Shell: /usr/sbin/nologin
+User: irc | Home: /run/ircd | Shell: /usr/sbin/nologin
+User: _apt | Home: /nonexistent | Shell: /usr/sbin/nologin
+User: nobody | Home: /nonexistent | Shell: /usr/sbin/nologin
+User: systemd-network | Home: / | Shell: /usr/sbin/nologin
+User: systemd-timesync | Home: / | Shell: /usr/sbin/nologin
+User: dhcpcd | Home: /usr/lib/dhcpcd | Shell: /bin/false
+User: messagebus | Home: /nonexistent | Shell: /usr/sbin/nologin
+User: syslog | Home: /nonexistent | Shell: /usr/sbin/nologin
+User: systemd-resolve | Home: / | Shell: /usr/sbin/nologin
+User: uuidd | Home: /run/uuidd | Shell: /usr/sbin/nologin
+
+
+
+
+#!/bin/bash
+IFS=':' read -r hour min sec <<< "12:30:45"
+echo "Hour: $hour, Minute: $min, Second: $sec"
+
+output:
+
+Hour: 12, Minute: 30, Second: 45
+
+
+
+
+
+
+
