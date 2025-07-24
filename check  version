@@ -1,3 +1,17 @@
+java -version 2>&1 | grep version
+🔍 What it does:
+java -version prints version details to stderr.
+
+2>&1 redirects stderr (file descriptor 2) to stdout (file descriptor 1), so the output can be piped to grep.
+
+NOTE::: (|)pipe will work on std output only
+
+grep version filters only the line(s) containing the word version.
+
+
+
+
+
 #!/usr/bin/bash
 
 # Docker Version
