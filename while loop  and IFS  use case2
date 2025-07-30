@@ -129,6 +129,128 @@ Hour: 12, Minute: 30, Second: 45
 
 
 
+-------------------------------------------------------------------- while loop ----------------------------------------------------------------------------
+
+Syntax1:
+----------------------------------------------------------
+while :
+do
+    echo "This is infinite loop"
+done
+
+
+Syntax2:
+----------------------------------------------------------
+while [[ condition ]]
+do
+    echo "This logic will execute as long as condition is true"
+done
+
+
+
+
+
+
+
+
+
+
+#!/bin/bash
+num=1
+for (( ;; ))                 # Infinite loop using for
+do
+        echo "Hi"
+        num=$((num+1))
+        if [[ $num -eq 5 ]];then
+                break
+        fi
+
+        sleep 2
+done
+
+-------- OR -----------
+
+#!/bin/bash
+num=1
+while :                          # Infinite loop using while
+do
+        echo "Hi"
+        num=$((num+1))
+        if [[ $num -eq 5 ]];then
+                break
+        fi
+
+        sleep 2
+done
+
+
+
+
+
+
+
+
+
+
+#!/bin/bash
+num=1
+while [[ 3 -eq 3 ]]
+do
+    echo "Hi"
+    num=$((num+1))
+    if [[ $num -eq 5 ]]; then
+        break
+    fi
+    sleep 2
+done
+
+✅ How It Works:
+- while [[ 3 -eq 3 ]] always evaluates to true, because 3 is always equal to 3.
+- So the loop is infinite, unless interrupted by a break statement.
+- It will run 4 times and then break when num reaches 5.
+
+
+
+
+bis@kali:~/shellScripting$ cat  while-loop.sh
+#!/bin/bash
+
+cnt=1
+while [[ $cnt -le 4 ]]
+do
+        echo "Hello"
+        cnt=$((cnt+1))
+        sleep 1
+done
+
+
+bis@kali:~/shellScripting$ ./while-loop.sh
+Hello
+Hello
+Hello
+Hello
+
+
+
+-------------------------------------------------------------------------------------
+command | while read -r line
+do
+    echo "${line}"
+done
+
+
+
+
+#!/bin/bash
+ls -l /var/log | while read -r line 
+do
+        echo "${line}"
+        sleep 1
+done
+
+
+
+
 
 
 
